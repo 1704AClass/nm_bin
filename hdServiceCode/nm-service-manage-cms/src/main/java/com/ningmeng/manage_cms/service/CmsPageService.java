@@ -1,5 +1,6 @@
 package com.ningmeng.manage_cms.service;
 
+import com.alibaba.fastjson.JSON;
 import com.ningmeng.framework.domain.cms.CmsPage;
 import com.ningmeng.framework.domain.cms.request.QueryPageRequest;
 import com.ningmeng.framework.domain.cms.response.CmsCode;
@@ -9,12 +10,16 @@ import com.ningmeng.framework.model.response.CommonCode;
 import com.ningmeng.framework.model.response.QueryResponseResult;
 import com.ningmeng.framework.model.response.QueryResult;
 import com.ningmeng.framework.model.response.ResponseResult;
+import com.ningmeng.manage_cms.config.RabbitmqConfig;
 import com.ningmeng.manage_cms.dao.CmsPageRepository;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -23,7 +28,36 @@ import java.util.Optional;
 @Service
 public class CmsPageService {
     @Autowired
-    CmsPageRepository cmsPageRepository;
+    private CmsPageRepository cmsPageRepository;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+    public ResponseResult postPage(String pageId){
+        boolean flag = createHtml();
+        if(!flag){
+            CustomExceptionCast.cast(CommonCode.FAIL);
+        }
+        //查询数据库
+        CmsPage cmsPage = this.getById(pageId);
+        if(cmsPage == null){
+            System.out.print("我是空的");
+            CustomExceptionCast.cast(CommonCode.FAIL);
+        }
+        Map<String,String> msgMap = new HashMap<>();
+        msgMap.put("pageId",pageId);
+        //消息内容
+        String msg = JSON.toJSONString(msgMap);
+        //获取站点id作为routingKey
+        String siteId = cmsPage.getSiteId();
+        //发送jsonpageId
+        rabbitTemplate.convertAndSend(RabbitmqConfig.EX_ROUTING_CMS_POSTPAGE,siteId,msg);
+        return new ResponseResult(CommonCode.SUCCESS);
+    }
+    //创建静态页面
+    public boolean createHtml(){
+        System.out.println("静态化完成");
+        return true;
+    }
     /**
      * 页面列表分页查询
      * @param page 当前页码

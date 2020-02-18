@@ -9,6 +9,7 @@
         <module>../nm-framework-utils</module>
         <module>../nm-service-api</module>
         <module>../nm-service-manage-cms</module>
+        <module>../nm-service-manage-cms-client</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
