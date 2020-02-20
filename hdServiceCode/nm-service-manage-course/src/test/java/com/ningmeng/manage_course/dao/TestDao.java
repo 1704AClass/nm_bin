@@ -1,13 +1,17 @@
 package com.ningmeng.manage_course.dao;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.ningmeng.framework.domain.course.CourseBase;
+import com.ningmeng.framework.domain.course.ext.CourseInfo;
+import com.ningmeng.framework.domain.course.request.CourseListRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.sound.midi.Soundbank;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -40,4 +44,13 @@ public class TestDao {
         System.out.println(courseBase);
 
     }
+    //测试分页
+    /*@Test
+    public void testPageHelper(){
+        PageHelper.startPage(1, 10);//查询第一页，每页显示10条记录
+        CourseListRequest courseListRequest = new CourseListRequest();
+        Page<CourseInfo> courseListPage = courseMapper.findCourseListPage("2");
+        List<CourseInfo> result = courseListPage.getResult();
+        System.out.println(courseListPage);
+    }*/
 }

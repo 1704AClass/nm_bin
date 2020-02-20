@@ -1,19 +1,26 @@
 package com.ningmeng.manage_course.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.ningmeng.framework.domain.course.CourseBase;
+import com.ningmeng.framework.domain.course.CourseMarket;
 import com.ningmeng.framework.domain.course.Teachplan;
+import com.ningmeng.framework.domain.course.ext.CategoryNode;
+import com.ningmeng.framework.domain.course.ext.CourseInfo;
 import com.ningmeng.framework.domain.course.ext.TeachplanNode;
+import com.ningmeng.framework.domain.course.response.AddCourseResult;
 import com.ningmeng.framework.exception.CustomExceptionCast;
 import com.ningmeng.framework.model.response.CommonCode;
+import com.ningmeng.framework.model.response.QueryResponseResult;
+import com.ningmeng.framework.model.response.QueryResult;
 import com.ningmeng.framework.model.response.ResponseResult;
-import com.ningmeng.manage_course.dao.CourseBaseRepository;
-import com.ningmeng.manage_course.dao.TeachplanMapper;
-import com.ningmeng.manage_course.dao.TeachplanRepository;
+import com.ningmeng.manage_course.dao.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +35,17 @@ public class CourseService {
     TeachplanRepository teachplanRepository;
     @Autowired
     CourseBaseRepository courseBaseRepository;
+    @Autowired
+    CourseMapper courseMapper;
+
+
+    @Autowired
+    CourseMarketRepository courseMarketRepository;
+    @Autowired
+    CourseMarketMapper courseMarketMapper;
+    @Autowired
+    CategoryMapper categoryMapper;
+
     //查询课程计划
     public TeachplanNode findTeachplanList(String courseId){
         TeachplanNode teachplanNode = teachplanMapper.selectList(courseId);
@@ -96,5 +114,64 @@ public class CourseService {
         teachplan.setCourseid(teachplanParent.getCourseid());
         teachplanRepository.save(teachplan);
         return new ResponseResult(CommonCode.SUCCESS);
+    }
+    @Transactional
+    public QueryResponseResult findCourseList(int page,int size,String companyId){
+        if(companyId==null || "".equals(companyId)){
+            CustomExceptionCast.cast(CommonCode.FAIL);
+        }
+        PageHelper.startPage(page,size);
+        Page<CourseInfo> courseListPage = courseMapper.findCourseListPage(companyId);
+        QueryResult queryResult=new QueryResult();
+        queryResult.setList(courseListPage.getResult());
+        queryResult.setTotal(courseListPage.getTotal());
+        return new QueryResponseResult(CommonCode.SUCCESS,queryResult);
+    }
+
+    public CourseBase getCourseBaseById(String id) {
+        CourseBase courseBaseById = courseMapper.findCourseBaseById(id);
+
+        return courseBaseById;
+    }
+    @Transactional
+    public ResponseResult updateCourseBase(String id, CourseBase courseBase) {
+        CourseBase courseBaseById = this.getCourseBaseById(id);
+        if(courseBaseById==null){
+            courseBaseRepository.save(courseBase);
+        }else {
+            courseBase.setId(id);
+            courseBaseRepository.save(courseBase);
+        }
+        return new ResponseResult(CommonCode.SUCCESS);
+    }
+
+    public CourseMarket getCourseMarketById(String id) {
+        CourseMarket byId = courseMarketMapper.findById(id);
+        return byId;
+    }
+
+    public ResponseResult updateCourseMarket(String id, CourseMarket courseMarket) {
+        CourseMarket courseMarketById = this.getCourseMarketById(id);
+        if(courseMarketById==null){
+            courseMarketRepository.save(courseMarket);
+        }else{
+            courseMarket.setId(id);
+            courseMarketRepository.save(courseMarket);
+        }
+        return new ResponseResult(CommonCode.SUCCESS);
+    }
+
+    //查询分类
+    public CategoryNode findList(){
+        return categoryMapper.selectList();
+    }
+
+    //添加课程提交
+    @Transactional
+    public AddCourseResult addCourseBase(CourseBase courseBase) {
+        //课程状态默认为未发布
+        courseBase.setStatus("202001");
+        courseBaseRepository.save(courseBase);
+        return new AddCourseResult(CommonCode.SUCCESS,courseBase.getId());
     }
 }
