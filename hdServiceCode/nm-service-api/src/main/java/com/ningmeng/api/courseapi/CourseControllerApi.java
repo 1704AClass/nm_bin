@@ -2,6 +2,7 @@ package com.ningmeng.api.courseapi;
 
 import com.ningmeng.framework.domain.course.CourseBase;
 import com.ningmeng.framework.domain.course.CourseMarket;
+import com.ningmeng.framework.domain.course.CoursePic;
 import com.ningmeng.framework.domain.course.Teachplan;
 import com.ningmeng.framework.domain.course.ext.CategoryNode;
 import com.ningmeng.framework.domain.course.ext.TeachplanNode;
@@ -24,11 +25,11 @@ public interface CourseControllerApi {
     @ApiOperation("分页查询我的课程列表")
     public QueryResponseResult findCourseList(int page, int size, String companyId);
 
+
     @ApiOperation("查询分类")
     public CategoryNode findList();
     @ApiOperation("添加课程基础信息")
     public AddCourseResult addCourseBase(CourseBase courseBase);
-
     @ApiOperation("获取课程基础信息")
     public CourseBase getCourseBaseById(String courseId) throws RuntimeException;
     @ApiOperation("更新课程基础信息")
@@ -37,4 +38,12 @@ public interface CourseControllerApi {
     public CourseMarket getCourseMarketById(String courseId);
     @ApiOperation("更新课程营销信息")
     public ResponseResult updateCourseMarket(String id,CourseMarket courseMarket);
+
+
+    @ApiOperation("添加课程图片")
+    public ResponseResult addCoursePic(String courseId,String pic);
+    @ApiOperation("获取课程基础信息")
+    public CoursePic findCoursePic(String courseId);
+    @ApiOperation("删除课程图片")
+    public ResponseResult deleteCoursePic(String courseId);
 }

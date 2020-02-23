@@ -3,6 +3,7 @@ package com.ningmeng.manage_course.controller;
 import com.ningmeng.api.courseapi.CourseControllerApi;
 import com.ningmeng.framework.domain.course.CourseBase;
 import com.ningmeng.framework.domain.course.CourseMarket;
+import com.ningmeng.framework.domain.course.CoursePic;
 import com.ningmeng.framework.domain.course.Teachplan;
 import com.ningmeng.framework.domain.course.ext.CategoryNode;
 import com.ningmeng.framework.domain.course.ext.TeachplanNode;
@@ -44,37 +45,56 @@ public class CourseController implements CourseControllerApi {
 
 
     @Override
-    @GetMapping("/teachplan/findList")
+    @GetMapping("/xy/findList")
     public CategoryNode findList() {
         return courseService.findList();
     }
     @Override
-    @PostMapping("/coursebase/add/{courseBase}")
+    @PostMapping("/xy/add/{courseBase}")
     public AddCourseResult addCourseBase(@RequestBody CourseBase courseBase) {
         return courseService.addCourseBase(courseBase);
     }
 
     @Override
-    @GetMapping("/teachplan/getCourseBaseById/{id}")
+    @GetMapping("/xy/getCourseBaseById/{id}")
     public CourseBase getCourseBaseById(String id) throws RuntimeException {
         return courseService.getCourseBaseById(id);
     }
 
     @Override
-    @PostMapping("/teachplan/updateCourseBase/{id}/{courseBase}")
+    @PostMapping("/xy/updateCourseBase/{id}/{courseBase}")
     public ResponseResult updateCourseBase(@PathVariable String id,@RequestBody CourseBase courseBase) {
         return courseService.updateCourseBase(id,courseBase);
     }
 
     @Override
-    @GetMapping("/teachplan/getCourseMarketById/{id}")
+    @GetMapping("/xy/getCourseMarketById/{id}")
     public CourseMarket getCourseMarketById(String id) {
         return courseService.getCourseMarketById(id);
     }
 
     @Override
-    @PostMapping("/teachplan/updateCourseMarket/{id}/{courseMarket}")
+    @PostMapping("/xy/updateCourseMarket/{id}/{courseMarket}")
     public ResponseResult updateCourseMarket(String id, CourseMarket courseMarket) {
         return courseService.updateCourseMarket(id,courseMarket);
+    }
+
+    @Override
+    @PostMapping("/coursepic/add")
+    public ResponseResult addCoursePic(@RequestParam(value = "courseId",required = true) String courseId,@RequestParam(value = "pic",required = true) String pic) {
+        //保存课程图片
+        return courseService.saveCoursePic(courseId,pic);
+    }
+
+    @Override
+    @GetMapping("/coursepic/list/{courseId}")
+    public CoursePic findCoursePic(@PathVariable("courseId") String courseId) {
+        return courseService.findCoursepic(courseId);
+    }
+
+    @Override
+    @DeleteMapping("/coursepic/delete")
+    public ResponseResult deleteCoursePic(@RequestParam("courseId") String courseId) {
+        return courseService.deleteCoursePic(courseId);
     }
 }

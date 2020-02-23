@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.ningmeng.framework.domain.course.CourseBase;
 import com.ningmeng.framework.domain.course.CourseMarket;
+import com.ningmeng.framework.domain.course.CoursePic;
 import com.ningmeng.framework.domain.course.Teachplan;
 import com.ningmeng.framework.domain.course.ext.CategoryNode;
 import com.ningmeng.framework.domain.course.ext.CourseInfo;
@@ -20,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +45,8 @@ public class CourseService {
     CourseMarketMapper courseMarketMapper;
     @Autowired
     CategoryMapper categoryMapper;
+    @Autowired
+    CoursePicRepository coursePicRepository;
 
     //查询课程计划
     public TeachplanNode findTeachplanList(String courseId){
@@ -173,5 +175,38 @@ public class CourseService {
         courseBase.setStatus("202001");
         courseBaseRepository.save(courseBase);
         return new AddCourseResult(CommonCode.SUCCESS,courseBase.getId());
+    }
+    //添加课程图片
+    @Transactional
+    public ResponseResult saveCoursePic(String courseId, String pic) {
+        //查询课程图片
+        Optional<CoursePic> picOptional = coursePicRepository.findById(courseId);
+        CoursePic coursePic = null;
+        if(picOptional.isPresent()){
+            coursePic = picOptional.get();
+        }
+        //没有课程图片则新建对象
+        if(coursePic == null){
+            coursePic = new CoursePic();
+        }
+        coursePic.setCourseid(courseId);
+        coursePic.setPic(pic);
+        //保存课程图片
+        coursePicRepository.save(coursePic);
+        return new ResponseResult(CommonCode.SUCCESS);
+    }
+
+    public CoursePic findCoursepic(String courseId) {
+        return coursePicRepository.findById(courseId).get();
+    }
+    //删除课程图片
+    @Transactional
+    public ResponseResult deleteCoursePic(String courseId) {
+        //执行删除，返回1表示删除成功，返回0表示删除失败
+        long result = coursePicRepository.deleteByCourseid(courseId);
+        if(result>0){
+            return new ResponseResult(CommonCode.SUCCESS);
+        }
+        return new ResponseResult(CommonCode.FAIL);
     }
 }
