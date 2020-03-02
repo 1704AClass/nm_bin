@@ -4,6 +4,7 @@ import com.ningmeng.api.cmsapi.CmsPageControllerApi;
 import com.ningmeng.framework.domain.cms.CmsPage;
 import com.ningmeng.framework.domain.cms.request.QueryPageRequest;
 import com.ningmeng.framework.domain.cms.response.CmsPageResult;
+import com.ningmeng.framework.domain.cms.response.CmsPostPageResult;
 import com.ningmeng.framework.model.response.QueryResponseResult;
 import com.ningmeng.framework.model.response.ResponseResult;
 import com.ningmeng.manage_cms.service.CmsPageService;
@@ -28,7 +29,7 @@ public class CmsPageController implements CmsPageControllerApi{
     //添加页面
     @Override
     @PostMapping("/add")
-    public CmsPageResult add(@RequestBody CmsPage cmsPage) {
+    public ResponseResult add(@RequestBody CmsPage cmsPage) {
         return cmsPageService.add(cmsPage);
     }
 
@@ -55,4 +56,25 @@ public class CmsPageController implements CmsPageControllerApi{
     public ResponseResult post(String pageId) {
         return cmsPageService.postPage(pageId);
     }
+
+    @Override
+    @PostMapping("/postPageQuick")
+    public CmsPostPageResult postPageQuick(@RequestBody CmsPage cmsPage) {
+        return cmsPageService.postPageQuick(cmsPage);
+    }
+
+    @GetMapping("/preview/{id}")
+    public String preview(@PathVariable("id") String cmsPageId) {
+        /*try {
+            //执行静态化
+            String pageHtml=cmsPageService.preview(cmsPageId);
+            ServletOutputStream outputStream=response.getOutPutStream();
+        }catch (Exception e){
+
+        }*/
+        return cmsPageService.preview(cmsPageId);
+    }
+
+
+
 }

@@ -7,10 +7,13 @@ import com.ningmeng.framework.domain.course.Teachplan;
 import com.ningmeng.framework.domain.course.ext.CategoryNode;
 import com.ningmeng.framework.domain.course.ext.TeachplanNode;
 import com.ningmeng.framework.domain.course.response.AddCourseResult;
+import com.ningmeng.framework.domain.course.response.CoursePublishResult;
+import com.ningmeng.framework.domain.course.response.CourseView;
 import com.ningmeng.framework.model.response.QueryResponseResult;
 import com.ningmeng.framework.model.response.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * Created by wangb on 2020/2/18.
@@ -46,4 +49,12 @@ public interface CourseControllerApi {
     public CoursePic findCoursePic(String courseId);
     @ApiOperation("删除课程图片")
     public ResponseResult deleteCoursePic(String courseId);
+
+    @ApiOperation("课程视图查询")
+    public CourseView courseview(String id);
+    @ApiOperation("预览课程")
+    public CoursePublishResult preview(String id);
+    @ApiOperation("发布课程")
+    public CoursePublishResult publish(@PathVariable String id);
+
 }
