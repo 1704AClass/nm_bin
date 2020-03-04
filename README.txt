@@ -5,3 +5,4 @@ rabbitmqcms完成！
 fastdfs完成！
 eureka调用完成！
 高亮分页条件搜索完成！
+视频拆分合成以及断点续传完成！
