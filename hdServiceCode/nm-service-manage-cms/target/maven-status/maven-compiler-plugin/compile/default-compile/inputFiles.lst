@@ -1,4 +1,6 @@
 E:\1704A\hdServiceCode\nm-service-manage-cms\src\main\java\com\ningmeng\manage_cms\service\CmsPageService.java
 E:\1704A\hdServiceCode\nm-service-manage-cms\src\main\java\com\ningmeng\manage_cms\controller\CmsPageController.java
+E:\1704A\hdServiceCode\nm-service-manage-cms\src\main\java\com\ningmeng\manage_cms\dao\CmsSiteRepository.java
+E:\1704A\hdServiceCode\nm-service-manage-cms\src\main\java\com\ningmeng\manage_cms\config\RabbitmqConfig.java
 E:\1704A\hdServiceCode\nm-service-manage-cms\src\main\java\com\ningmeng\manage_cms\dao\CmsPageRepository.java
 E:\1704A\hdServiceCode\nm-service-manage-cms\src\main\java\com\ningmeng\manage_cms\ManageCmsApplication.java

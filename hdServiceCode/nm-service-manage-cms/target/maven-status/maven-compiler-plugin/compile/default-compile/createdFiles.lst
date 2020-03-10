@@ -1,1 +1,2 @@
 com\ningmeng\manage_cms\ManageCmsApplication.class
+com\ningmeng\manage_cms\dao\CmsSiteRepository.class

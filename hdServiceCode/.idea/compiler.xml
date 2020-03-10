@@ -20,6 +20,7 @@
         <module name="nm-service-manage-media" />
         <module name="nm-service-manage-media-processor" />
         <module name="nm-service-search" />
+        <module name="nm-service-ucenter-auth" />
         <module name="test-rabbitmq-consumer" />
         <module name="test-rabbitmq-producer" />
       </profile>
@@ -39,6 +40,7 @@
       <module name="nm-service-manage-media" target="1.8" />
       <module name="nm-service-manage-media-processor" target="1.8" />
       <module name="nm-service-search" target="1.8" />
+      <module name="nm-service-ucenter-auth" target="1.8" />
       <module name="test-rabbitmq-consumer" target="1.8" />
       <module name="test-rabbitmq-producer" target="1.8" />
     </bytecodeTargetLevel>

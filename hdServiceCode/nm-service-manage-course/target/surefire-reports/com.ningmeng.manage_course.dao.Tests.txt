@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: com.ningmeng.manage_course.dao.Tests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.366 s <<< FAILURE! - in com.ningmeng.manage_course.dao.Tests
+testRibbon(com.ningmeng.manage_course.dao.Tests)  Time elapsed: 0.359 s  <<< ERROR!
+java.lang.IllegalStateException: No instances available for NM-SERVICE-MANAGE-CMS
+	at com.ningmeng.manage_course.dao.Tests.testRibbon(Tests.java:28)
+
