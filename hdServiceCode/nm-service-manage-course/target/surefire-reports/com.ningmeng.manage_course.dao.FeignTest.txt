@@ -1,20 +1,20 @@
 -------------------------------------------------------------------------------
 Test set: com.ningmeng.manage_course.dao.FeignTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 27.017 s <<< FAILURE! - in com.ningmeng.manage_course.dao.FeignTest
-testFeign(com.ningmeng.manage_course.dao.FeignTest)  Time elapsed: 5.308 s  <<< ERROR!
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 58.78 s <<< FAILURE! - in com.ningmeng.manage_course.dao.FeignTest
+testFeign(com.ningmeng.manage_course.dao.FeignTest)  Time elapsed: 7.68 s  <<< ERROR!
 java.lang.RuntimeException: com.netflix.client.ClientException: Load balancer does not have available server for client: nm-service-manage-cms
 	at com.ningmeng.manage_course.dao.FeignTest.testFeign(FeignTest.java:22)
 Caused by: com.netflix.client.ClientException: Load balancer does not have available server for client: nm-service-manage-cms
 	at com.ningmeng.manage_course.dao.FeignTest.testFeign(FeignTest.java:22)
 
-update(com.ningmeng.manage_course.dao.FeignTest)  Time elapsed: 0.228 s  <<< ERROR!
+update(com.ningmeng.manage_course.dao.FeignTest)  Time elapsed: 0.107 s  <<< ERROR!
 java.lang.RuntimeException: com.netflix.client.ClientException: Load balancer does not have available server for client: nm-service-manage-cms
 	at com.ningmeng.manage_course.dao.FeignTest.update(FeignTest.java:41)
 Caused by: com.netflix.client.ClientException: Load balancer does not have available server for client: nm-service-manage-cms
 	at com.ningmeng.manage_course.dao.FeignTest.update(FeignTest.java:41)
 
-del(com.ningmeng.manage_course.dao.FeignTest)  Time elapsed: 0.014 s  <<< ERROR!
+del(com.ningmeng.manage_course.dao.FeignTest)  Time elapsed: 0.015 s  <<< ERROR!
 java.lang.RuntimeException: com.netflix.client.ClientException: Load balancer does not have available server for client: nm-service-manage-cms
 	at com.ningmeng.manage_course.dao.FeignTest.del(FeignTest.java:47)
 Caused by: com.netflix.client.ClientException: Load balancer does not have available server for client: nm-service-manage-cms

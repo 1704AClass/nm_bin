@@ -5,6 +5,7 @@ E:\1704A\hdServiceCode\nm-service-manage-course\src\main\java\com\ningmeng\manag
 E:\1704A\hdServiceCode\nm-service-manage-course\src\main\java\com\ningmeng\manage_course\dao\TeachplanRepository.java
 E:\1704A\hdServiceCode\nm-service-manage-course\src\main\java\com\ningmeng\manage_course\dao\CourseMarketMapper.java
 E:\1704A\hdServiceCode\nm-service-manage-course\src\main\java\com\ningmeng\manage_course\dao\CoursePicRepository.java
+E:\1704A\hdServiceCode\nm-service-manage-course\src\main\java\com\ningmeng\manage_course\config\ResourceServerConfig.java
 E:\1704A\hdServiceCode\nm-service-manage-course\src\main\java\com\ningmeng\manage_course\ManageCourseApplication.java
 E:\1704A\hdServiceCode\nm-service-manage-course\src\main\java\com\ningmeng\manage_course\dao\TeachplanMediaRepository.java
 E:\1704A\hdServiceCode\nm-service-manage-course\src\main\java\com\ningmeng\manage_course\service\SysDicthinaryService.java

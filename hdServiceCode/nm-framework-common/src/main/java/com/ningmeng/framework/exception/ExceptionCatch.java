@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.nio.file.AccessDeniedException;
+
 /**
  * Created by wangb on 2020/2/13.
  */
@@ -25,6 +27,8 @@ public class ExceptionCatch {
     static{
         //在这里加入一些基础的异常类型判断
         builder.put(HttpMessageNotReadableException.class,CommonCode.HTTP_ERROR);
+        //除了CustomException以外的异常类型及对应的错误代码在这里定义,，如果不定义则统一返回固定的错误信息
+        builder.put(AccessDeniedException.class, CommonCode.UNAUTHORISE);
     }
     //捕获Exception异常
 

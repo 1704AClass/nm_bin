@@ -4,6 +4,7 @@ import com.ningmeng.api.courseapi.CourseControllerApi;
 import com.ningmeng.framework.domain.course.*;
 import com.ningmeng.framework.domain.course.ext.CategoryNode;
 import com.ningmeng.framework.domain.course.ext.TeachplanNode;
+import com.ningmeng.framework.domain.course.request.CourseListRequest;
 import com.ningmeng.framework.domain.course.response.AddCourseResult;
 import com.ningmeng.framework.domain.course.response.CoursePublishResult;
 import com.ningmeng.framework.domain.course.response.CourseView;
@@ -11,6 +12,7 @@ import com.ningmeng.framework.model.response.QueryResponseResult;
 import com.ningmeng.framework.model.response.ResponseResult;
 import com.ningmeng.manage_course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -36,9 +38,10 @@ public class CourseController implements CourseControllerApi {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('course_find_list')")
     @PostMapping("/teachplan/findCourseList")
-    public QueryResponseResult findCourseList(int page, int size, String companyId) {
-        return courseService.findCourseList(page,size,companyId);
+    public QueryResponseResult findCourseList(int page, int size,CourseListRequest courseListRequest) {
+        return courseService.findCourseList(page,size,courseListRequest.getCompanyId());
     }
 
 
@@ -55,6 +58,7 @@ public class CourseController implements CourseControllerApi {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('course_get_baseinfo')")
     @GetMapping("/xy/getCourseBaseById/{id}")
     public CourseBase getCourseBaseById(String id) throws RuntimeException {
         return courseService.getCourseBaseById(id);

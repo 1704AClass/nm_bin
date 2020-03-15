@@ -46,11 +46,13 @@ public class AuthService {
     public AuthToken login(String username, String password, String clientId, String clientSecret){
         //申请令牌
         AuthToken authToken = applyToken(username,password,clientId, clientSecret);
+
         if(authToken == null){
             CustomExceptionCast.cast(AuthCode.AUTH_LOGIN_APPLYTOKEN_FAIL);
         }
         //将 token存储到redis
         String access_token = authToken.getAccess_token();
+        System.out.println(access_token+"1111111111111111111111111111111");
         String content = JSON.toJSONString(authToken);
         boolean saveTokenResult = saveToken(access_token, content, tokenValiditySeconds);
         if(!saveTokenResult){
@@ -135,5 +137,31 @@ public class AuthService {
         //进行base64编码
         byte[] encode = Base64.encode(string.getBytes());
         return "Basic "+new String(encode);
+    }
+
+    //从redis查询令牌
+    public AuthToken getUserToken(String token){
+        //定义userToken
+        String userToken = "user_token:"+token;
+        //通过redis串取token
+        String userTokenString = stringRedisTemplate.opsForValue().get(userToken);
+        if(userToken!=null){
+            AuthToken authToken = null;
+            try {
+                authToken = JSON.parseObject(userTokenString, AuthToken.class);
+            } catch (Exception e) {
+                LOGGER.error("getUserToken from redis and execute JSON.parseObject error {}",e.getMessage());
+                e.printStackTrace();
+            }
+            return authToken;
+        }
+        return null;
+    }
+
+    //从redis中删除令牌
+    public boolean delToken(String access_token){
+        String name = "user_token:" + access_token;
+        stringRedisTemplate.delete(name);
+        return true;
     }
 }
