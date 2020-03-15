@@ -20,6 +20,7 @@
         <module name="nm-service-manage-course" />
         <module name="nm-service-manage-media" />
         <module name="nm-service-manage-media-processor" />
+        <module name="nm-service-manage-order" />
         <module name="nm-service-search" />
         <module name="nm-service-ucenter" />
         <module name="nm-service-ucenter-auth" />
@@ -42,6 +43,7 @@
       <module name="nm-service-manage-course" target="1.8" />
       <module name="nm-service-manage-media" target="1.8" />
       <module name="nm-service-manage-media-processor" target="1.8" />
+      <module name="nm-service-manage-order" target="1.8" />
       <module name="nm-service-search" target="1.8" />
       <module name="nm-service-ucenter" target="1.8" />
       <module name="nm-service-ucenter-auth" target="1.8" />
