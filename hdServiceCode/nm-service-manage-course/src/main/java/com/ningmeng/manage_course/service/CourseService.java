@@ -84,6 +84,7 @@ public class CourseService {
         return teachplanNode;
     }
     //获取课程根结点，如果没有则添加根结点
+    @Transactional
     public String getTeachplanRoot(String courseId){
         //校验课程id
         Optional<CourseBase> optional = courseBaseRepository.findById(courseId);
